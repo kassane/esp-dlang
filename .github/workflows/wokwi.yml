@@ -7,7 +7,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [esp32, esp32s2, esp32s3]
+        target: [esp32, esp32s2, esp32s3, esp32c3, esp32c6, esp32h2]
     runs-on: ubuntu-latest
     container:
       image: jmeeuws/esp-dlang
@@ -21,6 +21,7 @@ jobs:
           export HOME=/root
           source /opt/esp-idf/export.sh >/dev/null
           ulimit -n 4096
+          cp ./dflags.py /opt/ldc-xtensa/bin/dflags.py
           cd ./examples/example/
           idf.py set-target ${{ matrix.target }}
           idf.py build

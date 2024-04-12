@@ -35,6 +35,12 @@ def get_esp_idf_ldc_target_flags() -> List[str]:
     target = get_esp_idf_target()
     if target in ["esp32", "esp32s2", "esp32s3"]:
         return [f"--mcpu={target}", f"--mtriple=xtensa-{target}-elf"]
+    elif target in ["esp32c2", "esp32c3"]:
+        return [f"--mcpu=generic-rv32", f"--mattr=+m,+c", f"--mtriple=riscv32-unknown-none-elf"]
+    elif target in ["esp32c5", "esp32c6", "esp32c61", "esp32h2"]:
+        return [f"--mcpu=generic-rv32", f"--mattr=+m,+c,+a", f"--mtriple=riscv32-unknown-none-elf"]
+    elif target in ["esp32p4"]:
+        return [f"--mcpu=generic-rv32", f"--mattr=+m,+c,+a,+f", f"--mtriple=riscv32-unknown-none-elf"]
     else:
         raise Exception(f"Unsupported target {target}")
 
